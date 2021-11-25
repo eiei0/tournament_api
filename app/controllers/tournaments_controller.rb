@@ -13,7 +13,13 @@ class TournamentsController < ApplicationController
 
   # GET /tournaments/1
   def show
-    render json: @tournament
+    resp = Tournaments::Find.call(id: params[:id])
+
+    if resp.success?
+      render json: resp.tournament
+    else
+      render json: resp.errors, status: resp.status
+    end
   end
 
   # POST /tournaments
