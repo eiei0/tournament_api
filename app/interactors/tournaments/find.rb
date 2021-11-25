@@ -11,10 +11,14 @@ module Tournaments
 
     private
 
-    delegate :id, to: :context, private: true
+    delegate :params, to: :context, private: true
 
     def tournament
       @tournament ||= Tournament.find_by(id: id)
+    end
+
+    def id
+      params[:id]
     end
 
     def fail_tournament_not_found!

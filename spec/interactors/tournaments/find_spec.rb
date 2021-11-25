@@ -4,18 +4,19 @@ require 'rails_helper'
 
 RSpec.describe Tournaments::Find do
   describe '.call' do
-    subject(:interactor) { described_class.call(id: id) }
+    subject(:interactor) { described_class.call(params: params) }
 
     let(:tournament) { create(:tournament) }
 
     context 'when the tournament exists' do
-      let(:id) { tournament.id.to_s }
+      let(:params) { { id: tournament.id.to_s } }
 
       it { expect(interactor).to be_success }
     end
 
     context 'when the tournament does not exist' do
       let(:id) { '8675309' }
+      let(:params) { { id: id } }
 
       it { expect(interactor).to be_failure }
 

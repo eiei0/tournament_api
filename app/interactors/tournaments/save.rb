@@ -7,10 +7,10 @@ module Tournaments
     include Interactor
 
     def call
-      return if tournament.save
-
+      tournament.save!
+    rescue StandardError => e
       context.fail!(
-        errors: tournament.errors.full_messages,
+        errors: e.full_message,
         status: :unprocessable_entity
       )
     end
