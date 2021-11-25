@@ -29,7 +29,7 @@ class TournamentsController < ApplicationController
     if resp.success?
       render json: resp.tournament, status: :created, location: resp.tournament
     else
-      render json: resp.errors, status: :unprocessable_entity
+      render json: resp.errors, status: resp.status
     end
   end
 

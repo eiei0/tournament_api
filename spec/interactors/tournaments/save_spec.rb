@@ -20,6 +20,10 @@ RSpec.describe Tournaments::Save do
       it 'raises an invalid argument error' do
         expect(interactor.errors).to include("Name can't be blank")
       end
+
+      it 'returns a unprocessable_entity status code' do
+        expect(interactor.status).to eq(:unprocessable_entity)
+      end
     end
   end
 end

@@ -28,7 +28,10 @@ module Tournaments
     def validate(tournament)
       return if tournament.valid?
 
-      context.fail!(errors: tournament.errors.full_messages)
+      context.fail!(
+        errors: tournament.errors.full_messages,
+        status: :unprocessable_entity
+      )
     end
   end
 end

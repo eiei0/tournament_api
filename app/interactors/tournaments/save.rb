@@ -9,7 +9,10 @@ module Tournaments
     def call
       return if tournament.save
 
-      context.fail!(errors: tournament.errors.full_messages)
+      context.fail!(
+        errors: tournament.errors.full_messages,
+        status: :unprocessable_entity
+      )
     end
 
     delegate :tournament, to: :context, private: true
