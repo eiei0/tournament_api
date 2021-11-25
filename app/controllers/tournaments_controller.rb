@@ -2,13 +2,11 @@
 
 # Endpoints for Tournament resource
 class TournamentsController < ApplicationController
-  before_action :set_tournament, only: %i[show update destroy]
-
   # GET /tournaments
   def index
-    @tournaments = Tournament.all
+    tournaments = Tournament.all
 
-    render json: @tournaments
+    render json: tournaments
   end
 
   # GET /tournaments/1
@@ -45,13 +43,12 @@ class TournamentsController < ApplicationController
 
   # DELETE /tournaments/1
   def destroy
-    @tournament.destroy
-  end
+    resp = Tournaments::Destroy.call(params: params)
 
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_tournament
-    @tournament = Tournament.find(params[:id])
+    if resp.success?
+      render json: true, status: :no_content
+    else
+      render json: resp.errors, status: resp.status
+    end
   end
 end

@@ -119,8 +119,33 @@ RSpec.describe '/tournaments', type: :request do
 
     let!(:tournament) { create(:tournament) }
 
-    it 'destroys the requested tournament' do
-      expect { req }.to change(Tournament, :count).from(1).to(0)
+    context 'when tournament is destroyed successfully' do
+      it 'destroys the requested tournament' do
+        expect { req }.to change(Tournament, :count).from(1).to(0)
+      end
+
+      it 'returns a 204 status code' do
+        req
+
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context 'when tournament is destroyed unsuccessfully' do
+      before do
+        allow(Tournament).to receive(:find_by).and_return(tournament)
+        allow(tournament).to receive(:destroy!).and_raise(
+          'ActiveRecord::RecordNotDestroyed',
+          'unable to destroy record'
+        )
+      end
+
+      it 'renders a JSON response with errors for the tournament' do
+        req
+
+        expect(response).to have_http_status(:conflict)
+        expect(response.content_type).to eq('application/json; charset=utf-8')
+      end
     end
   end
 end
