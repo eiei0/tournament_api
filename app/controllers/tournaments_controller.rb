@@ -18,12 +18,12 @@ class TournamentsController < ApplicationController
 
   # POST /tournaments
   def create
-    @tournament = Tournament.new(tournament_params)
+    resp = Tournaments::Create.call(params: params)
 
-    if @tournament.save
-      render json: @tournament, status: :created, location: @tournament
+    if resp.success?
+      render json: resp.tournament, status: :created, location: resp.tournament
     else
-      render json: @tournament.errors, status: :unprocessable_entity
+      render json: resp.errors, status: :unprocessable_entity
     end
   end
 
