@@ -7,6 +7,7 @@ ruby '2.6.0'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'doorkeeper', '~> 5.4.0'
 gem 'interactor-rails', '~> 2.0'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
