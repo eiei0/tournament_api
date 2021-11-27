@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe '/tournaments', type: :request do
+RSpec.describe 'api/v1/tournaments', type: :request do
   let(:valid_headers) { {} }
   let(:valid_attributes) { attributes_for(:tournament) }
   let(:invalid_attributes) do
@@ -12,7 +12,7 @@ RSpec.describe '/tournaments', type: :request do
   end
 
   describe 'GET /index' do
-    subject(:req) { get tournaments_url, headers: valid_headers, as: :json }
+    subject(:req) { get api_v1_tournaments_url, headers: valid_headers, as: :json }
 
     before do
       create_list(:tournament, 3)
@@ -30,7 +30,7 @@ RSpec.describe '/tournaments', type: :request do
   end
 
   describe 'GET /show' do
-    subject(:req) { get tournament_url(tournament), as: :json }
+    subject(:req) { get api_v1_tournament_url(tournament), as: :json }
 
     let(:tournament) { create(:tournament) }
 
@@ -43,7 +43,7 @@ RSpec.describe '/tournaments', type: :request do
 
   describe 'POST /create' do
     subject(:req) do
-      post tournaments_url,
+      post api_v1_tournaments_url,
            params: { tournament: attributes }, headers: valid_headers, as: :json
     end
 
@@ -80,7 +80,7 @@ RSpec.describe '/tournaments', type: :request do
 
   describe 'PATCH /update' do
     subject(:req) do
-      patch tournament_url(tournament),
+      patch api_v1_tournament_url(tournament),
             params: { tournament: attributes }, headers: valid_headers, as: :json
     end
 
@@ -115,7 +115,7 @@ RSpec.describe '/tournaments', type: :request do
   end
 
   describe 'DELETE /destroy' do
-    subject(:req) { delete tournament_url(tournament), headers: valid_headers, as: :json }
+    subject(:req) { delete api_v1_tournament_url(tournament), headers: valid_headers, as: :json }
 
     let!(:tournament) { create(:tournament) }
 
