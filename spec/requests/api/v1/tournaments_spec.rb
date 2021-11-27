@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'api/v1/tournaments', type: :request do
+  include_context 'with authorized user'
+
   let(:valid_headers) { {} }
   let(:valid_attributes) { attributes_for(:tournament) }
   let(:invalid_attributes) do
