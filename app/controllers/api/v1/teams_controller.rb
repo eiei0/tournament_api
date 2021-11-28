@@ -4,8 +4,6 @@ module Api
   module V1
     # Endpoints for Team resource
     class TeamsController < ApplicationController
-      before_action :set_team, only: %i[show update destroy]
-
       # GET /api/v1/teams
       def index
         teams = Team.all
@@ -37,28 +35,24 @@ module Api
 
       # PATCH/PUT /api/v1/teams/1
       def update
-        if @team.update(team_params)
-          render json: @team
+        resp = Teams::Update.call(params: params)
+
+        if resp.success?
+          render json: resp.team
         else
-          render json: @team.errors, status: :unprocessable_entity
+          render json: resp.errors, status: resp.status
         end
       end
 
       # DELETE /api/v1/teams/1
       def destroy
-        @team.destroy
-      end
+        resp = Teams::Destroy.call(params: params)
 
-      private
-
-      # Use callbacks to share common setup or constraints between actions.
-      def set_team
-        @team = Team.find(params[:id])
-      end
-
-      # Only allow a list of trusted parameters through.
-      def team_params
-        params.require(:team).permit(:name, :player_count)
+        if resp.success?
+          render json: true, status: :no_content
+        else
+          render json: resp.errors, status: resp.status
+        end
       end
     end
   end

@@ -79,7 +79,7 @@ RSpec.describe '/teams', type: :request do
   describe 'PATCH /update' do
     subject(:req) do
       patch api_v1_team_url(team),
-        params: { team: attributes }, headers: valid_headers, as: :json
+            params: { team: attributes }, headers: valid_headers, as: :json
     end
 
     context 'with valid parameters' do

@@ -36,6 +36,7 @@ module Api
       # PATCH/PUT /api/v1/tournaments/1
       def update
         resp = Tournaments::Update.call(params: params)
+
         if resp.success?
           render json: resp.tournament
         else
