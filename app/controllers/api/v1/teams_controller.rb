@@ -6,30 +6,36 @@ module Api
     class TeamsController < ApplicationController
       before_action :set_team, only: %i[show update destroy]
 
-      # GET /teams
+      # GET /api/v1/teams
       def index
         teams = Team.all
 
         render json: teams
       end
 
-      # GET /teams/1
+      # GET /api/v1/teams/1
       def show
-        render json: @team
-      end
+        resp = Teams::Find.call(params: params)
 
-      # POST /teams
-      def create
-        @team = Team.new(team_params)
-
-        if @team.save
-          render json: @team, status: :created, location: api_v1_teams_url(@team)
+        if resp.success?
+          render json: resp.team
         else
-          render json: @team.errors, status: :unprocessable_entity
+          render json: resp.errors, status: resp.status
         end
       end
 
-      # PATCH/PUT /teams/1
+      # POST /api/v1/teams
+      def create
+        resp = Teams::Create.call(params: params)
+
+        if resp.success?
+          render json: resp.team, status: :created, location: api_v1_teams_url(resp.team)
+        else
+          render json: resp.errors, status: resp.status
+        end
+      end
+
+      # PATCH/PUT /api/v1/teams/1
       def update
         if @team.update(team_params)
           render json: @team
@@ -38,7 +44,7 @@ module Api
         end
       end
 
-      # DELETE /teams/1
+      # DELETE /api/v1/teams/1
       def destroy
         @team.destroy
       end

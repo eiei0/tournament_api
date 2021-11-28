@@ -42,7 +42,7 @@ RSpec.describe '/teams', type: :request do
   describe 'POST /create' do
     subject(:req) do
       post api_v1_teams_url,
-        params: { team: attributes }, headers: valid_headers, as: :json
+           params: { team: attributes }, headers: valid_headers, as: :json
     end
 
     context 'with valid parameters' do
