@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_27_195211) do
+ActiveRecord::Schema.define(version: 2021_11_28_062202) do
+
+  create_table "enrollments", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.integer "tournament_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_id"], name: "index_enrollments_on_team_id"
+    t.index ["tournament_id"], name: "index_enrollments_on_tournament_id"
+  end
 
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer "resource_owner_id", null: false
@@ -86,6 +95,8 @@ ActiveRecord::Schema.define(version: 2021_11_27_195211) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "enrollments", "teams"
+  add_foreign_key "enrollments", "tournaments"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
 end

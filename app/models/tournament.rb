@@ -7,4 +7,7 @@ class Tournament < ApplicationRecord
             :registration_start_date,
             :registration_end_date,
             presence: true
+
+  has_many :enrollments, dependent: :destroy
+  has_many :teams, through: :enrollments
 end
