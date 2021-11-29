@@ -7,9 +7,11 @@ FactoryBot.define do
     middle_name { Faker::Name.middle_name }
     nickname { Faker::Hipster.word }
     gender { Faker::Gender.binary_type }
+    password { 'taco1234' }
+    password_confirmation { 'taco1234' }
 
     after(:create, :build, :build_stubbed) do |user|
-      user.name = "#{user.given_name} #{user.middle_name}".strip + " #{user.last_name}"
+      user.name = "#{user.given_name} #{user.middle_name}".strip + " #{user.family_name}"
       user.email = Faker::Internet.safe_email(name: user.name)
     end
   end

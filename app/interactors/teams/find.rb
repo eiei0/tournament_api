@@ -18,7 +18,7 @@ module Teams
     end
 
     def id
-      params[:id]
+      params[:id] || params[:team_id]
     end
 
     def fail_team_not_found!
