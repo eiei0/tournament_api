@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_28_062202) do
+ActiveRecord::Schema.define(version: 2021_11_28_063440) do
 
   create_table "enrollments", force: :cascade do |t|
     t.integer "team_id", null: false
@@ -63,6 +63,15 @@ ActiveRecord::Schema.define(version: 2021_11_28_062202) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
+  create_table "rosters", force: :cascade do |t|
+    t.integer "player_id", null: false
+    t.integer "team_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id"], name: "index_rosters_on_player_id"
+    t.index ["team_id"], name: "index_rosters_on_team_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name", null: false
     t.integer "player_count", default: 0, null: false
@@ -99,4 +108,6 @@ ActiveRecord::Schema.define(version: 2021_11_28_062202) do
   add_foreign_key "enrollments", "tournaments"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "rosters", "teams"
+  add_foreign_key "rosters", "users", column: "player_id"
 end
