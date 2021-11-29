@@ -5,7 +5,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :teams
+      resources :teams do
+        scope module: :teams do
+          resources :rosters, only: :create
+        end
+      end
+
       resources :tournaments
     end
   end

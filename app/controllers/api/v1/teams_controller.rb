@@ -13,7 +13,7 @@ module Api
 
       # GET /api/v1/teams/1
       def show
-        resp = Teams::Find.call(params: params)
+        resp = ::Teams::Find.call(params: params)
 
         if resp.success?
           render json: resp.team
@@ -24,7 +24,7 @@ module Api
 
       # POST /api/v1/teams
       def create
-        resp = Teams::Create.call(params: params)
+        resp = ::Teams::Create.call(params: params)
 
         if resp.success?
           render json: resp.team, status: :created, location: api_v1_teams_url(resp.team)
@@ -35,7 +35,7 @@ module Api
 
       # PATCH/PUT /api/v1/teams/1
       def update
-        resp = Teams::Update.call(params: params)
+        resp = ::Teams::Update.call(params: params)
 
         if resp.success?
           render json: resp.team
@@ -46,7 +46,7 @@ module Api
 
       # DELETE /api/v1/teams/1
       def destroy
-        resp = Teams::Destroy.call(params: params)
+        resp = ::Teams::Destroy.call(params: params)
 
         if resp.success?
           render json: true, status: :no_content
