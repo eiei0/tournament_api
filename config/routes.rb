@@ -11,7 +11,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :tournaments
+      resources :tournaments do
+        scope module: :tournaments do
+          resources :registrations, path: '/register', only: :create
+        end
+      end
     end
   end
 end

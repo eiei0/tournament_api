@@ -13,7 +13,7 @@ module Api
 
       # GET /api/v1/tournaments/1
       def show
-        resp = Tournaments::Find.call(params: params)
+        resp = ::Tournaments::Find.call(params: params)
 
         if resp.success?
           render json: resp.tournament
@@ -24,7 +24,7 @@ module Api
 
       # POST /api/v1/tournaments
       def create
-        resp = Tournaments::Create.call(params: params)
+        resp = ::Tournaments::Create.call(params: params)
 
         if resp.success?
           render json: resp.tournament, status: :created, location: api_v1_tournaments_url(resp.tournament)
@@ -35,7 +35,7 @@ module Api
 
       # PATCH/PUT /api/v1/tournaments/1
       def update
-        resp = Tournaments::Update.call(params: params)
+        resp = ::Tournaments::Update.call(params: params)
 
         if resp.success?
           render json: resp.tournament
@@ -46,7 +46,7 @@ module Api
 
       # DELETE /api/v1/tournaments/1
       def destroy
-        resp = Tournaments::Destroy.call(params: params)
+        resp = ::Tournaments::Destroy.call(params: params)
 
         if resp.success?
           render json: true, status: :no_content
