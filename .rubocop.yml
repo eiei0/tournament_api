@@ -20,6 +20,7 @@ Performance/MethodObjectAsBlock:
 Metrics/BlockLength:
   Exclude:
   - "spec/**/**.rb"
+  - "config/**/**.rb"
 
 RSpec/MultipleExpectations:
   Exclude:
