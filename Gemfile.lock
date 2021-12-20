@@ -232,7 +232,7 @@ DEPENDENCIES
   listen (~> 3.3)
   pry-rails
   puma (~> 5.0)
-  rails (~> 6.1.4, >= 6.1.4.1)
+  rails (~> 6.1.4)
   rspec-rails
   rubocop (~> 1.23)
   rubocop-performance (~> 1.12)
